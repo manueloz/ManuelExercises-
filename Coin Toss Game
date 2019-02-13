@@ -1,0 +1,43 @@
+import java.util.Random;
+
+public class game2 {
+
+	
+	public static void main(String[] args) {
+		game coin = new game();
+		Random rand = new Random();
+		
+		
+		
+		for (int i = 0; i < coin.Totaltoss; i++) {
+		if(rand.nextInt(2) == 0) {
+			System.out.println("Head");	
+			coin.head++;
+			
+		}
+		else 
+		{
+			System.out.println("Tail");
+			coin.tail++;
+		}
+		}
+		System.out.println("Qty of Heds " + coin.head);
+		System.out.println("Qty of Tails " + coin.tail);
+	}
+		
+	}
+
+_____________________________________________________________________________________________________
+
+public class game {
+	
+	int Totaltoss;
+	int head;
+	int tail;
+
+	public game() {
+		this.head = 0;
+		this.tail = 0;
+		this.Totaltoss = 10;
+	}
+}
