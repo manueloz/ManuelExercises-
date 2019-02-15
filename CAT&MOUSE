@@ -24,7 +24,9 @@ public class Main {
 				System.out.println("You can start playing");
 				
 				boolean validOption = true;
+				int[][] array = { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 } };
 				do {
+					do {
 					
 					System.out.println("__________________________________");
 					System.out.println("Insert coordinates between 0 and 4");
@@ -42,18 +44,19 @@ public class Main {
 						cat.setCoordinateY(coordinateY);
 						
 						validOption = false;
-						//game.play();
+						
 					} else {
 						System.out.println("INVALID COORDINATE");
 						System.out.println("Please insert a valid coordinate");
-						//break;
+						
 					}
-					
 					game.play();
 					GameXY.retry();
-				}while (!validOption);
+				}while (!validOption );
+				}while (cat.CatchMouse(mouse, array) == true);
 				
-				GameXY.retry();
+				
+				//GameXY.retry();
 			break;
 		case 2:
 			System.out.println("Bye");			
@@ -66,7 +69,7 @@ public class Main {
 			
 		}
 		
-		}while(input!=0);
+		}while(input!=0 & input==1);
 	}
 
 }
@@ -103,12 +106,20 @@ class Cat {
 			for (int j = 0; j < array[i].length; j++) {
 				if (array[i][j]==1&&mouse.coordinate_x==coordinate_x&&mouse.coordinate_y==coordinate_y) {
 					System.out.println("Congratulations, you catched the mouse :)");
+					GameXY.won++;
+					System.out.println("You won: "+ GameXY.won+" times");
+					System.out.println("You lost "+ GameXY.lose+" times");
+					System.out.println("Do You want to play again");
+					String[] args = null;
+					Main.main(args);
 					System.exit(0);
 					return true;
 				}
 			}
 		}
 		System.out.println("Mouse not found, try again");	
+		GameXY.lose++;
+		//System.out.println("You Won: "+ GameXY.won+" times");
 		return false;
 	}
 	
@@ -125,7 +136,8 @@ class Cat {
 }
 
 class GameXY {
-
+	static int won = 0;
+	static int lose = 0;
 	static int attempts = 0;
 	int[][] array = { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 } };
 	Cat cat;
@@ -146,6 +158,8 @@ class GameXY {
 	
 		if (GameXY.attempts > 4) {
 			System.out.println("Sorry, There are no more attempts");
+			System.out.println("You Won: "+ won+" times");
+			System.out.println("lose: "+ lose+" times");
 			System.exit(0);
 		}
 	}
