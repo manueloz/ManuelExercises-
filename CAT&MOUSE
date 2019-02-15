@@ -1,0 +1,152 @@
+package CatAndMouse;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		Cat cat = new Cat();
+		Mouse mouse = new Mouse();
+		GameXY game = new GameXY(cat, mouse);
+		int input;
+		
+		do {
+			
+			System.out.println("Option 1 - Play Game");
+			System.out.println("Option 2 - Exit");
+			input = sc.nextInt();
+			
+			switch (input) {
+			case 1:
+				System.out.println("You can start playing");
+				
+				boolean validOption = true;
+				do {
+					
+					System.out.println("__________________________________");
+					System.out.println("Insert coordinates between 0 and 4");
+					String result = sc.next();
+			
+					if (result.matches("[01234],[01234]") ) {
+						String 	coordinates[] = result.split(",");
+						String 	X = coordinates[0];
+						String 	Y = coordinates[1]; 
+						
+						int coordinateX = Integer.parseInt(X);
+						int coordinateY = Integer.parseInt(Y);
+						
+						cat.setCoordinateX(coordinateX);
+						cat.setCoordinateY(coordinateY);
+						
+						validOption = false;
+						//game.play();
+					} else {
+						System.out.println("INVALID COORDINATE");
+						System.out.println("Please insert a valid coordinate");
+						//break;
+					}
+					
+					game.play();
+					GameXY.retry();
+				}while (!validOption);
+				
+				GameXY.retry();
+			break;
+		case 2:
+			System.out.println("Bye");			
+			sc.close();			
+			System.exit(0);
+			break;
+		default:
+			System.out.println("Incorrect option");
+			break;
+			
+		}
+		
+		}while(input!=0);
+	}
+
+}
+
+class Mouse {
+	
+	boolean matrix[][] =new boolean[5][5];
+	
+	Random ran = new Random();
+
+	int coordinate_x;
+
+	int coordinate_y;
+	
+	Mouse(){
+		
+
+		
+		coordinate_x = (int) (Math.random() * 5);		
+		coordinate_y = (int) (Math.random() * 5);	
+		System.out.println(coordinate_x + " " + coordinate_y);
+	}
+}
+
+class Cat {
+	
+	int coordinate_x;
+	int coordinate_y;
+
+	
+	public boolean CatchMouse(Mouse mouse, int[][] array) {
+		
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array[i].length; j++) {
+				if (array[i][j]==1&&mouse.coordinate_x==coordinate_x&&mouse.coordinate_y==coordinate_y) {
+					System.out.println("Congratulations, you catched the mouse :)");
+					System.exit(0);
+					return true;
+				}
+			}
+		}
+		System.out.println("Mouse not found, try again");	
+		return false;
+	}
+	
+	
+
+	public void setCoordinateX(int coordinate_x) {
+		this.coordinate_x = coordinate_x;
+	}
+
+	public void setCoordinateY(int coordinate_y) {
+	this.coordinate_y = coordinate_y;
+	}
+
+}
+
+class GameXY {
+
+	static int attempts = 0;
+	int[][] array = { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0 } };
+	Cat cat;
+	Mouse mouse;
+
+	public GameXY(Cat cat, Mouse mouse) {
+		this.cat = cat;
+		this.mouse = mouse;
+		array[mouse.coordinate_x][mouse.coordinate_y] = 1;
+	}
+
+	public void play() {
+		cat.CatchMouse(mouse, array);
+		attempts++;
+	}
+	
+	public static void retry() {
+	
+		if (GameXY.attempts > 4) {
+			System.out.println("Sorry, There are no more attempts");
+			System.exit(0);
+		}
+	}
+}
