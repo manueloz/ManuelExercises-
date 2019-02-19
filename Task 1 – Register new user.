@@ -63,8 +63,9 @@ public class Gecko_Driver {
 		WebElement text = driver.findElement(By.xpath("/html/body/div/table/tbody/tr/td[2]/table/tbody/tr[4]/td/table/tbody/tr/td[2]/table/tbody/tr[3]/td/p[2]"));
 		String linkText = text.getText();
 		
-		System.out.println("Welcome Message: " + linkTextDear);
-		System.out.println("Welcome Message: " + linkText);
+		System.out.println("  Welcome Message);
+		System.out.println(" " + linkTextDear);
+		System.out.println(" " + linkText);
 				
 		Thread.sleep(10000);
 		driver.quit();
