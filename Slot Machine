@@ -1,0 +1,466 @@
+package SlotMachine;
+
+import java.util.Scanner;
+
+class SlotMachine {
+	static int total;
+	static int Bet = 1;
+	static Juego j = new Juego();
+
+	public static void main(String[] args) {
+
+		System.out.println("Welcome");
+		System.out.println("Please select an option");
+		System.out.println("");
+		Scanner scan = new Scanner(System.in);
+		int imput;
+
+		do {
+			System.out.println("####################");
+			System.out.println("# 1 - Instructions #");
+			System.out.println("# 2 - Play         #");
+			System.out.println("# 3 - Cash         #");
+			System.out.println("# 4 - Credit	   #");
+			System.out.println("# 5 - Bet          #");
+			System.out.println("# 6 - Exit         #");
+			System.out.println("####################");
+			imput = scan.nextInt();
+			switch (imput) {
+
+			case 1:
+				Instructions();
+				break;
+
+			case 2:
+				play();
+				break;
+
+			case 3:
+				Cash();
+				break;
+
+			case 4:
+				Credit();
+				break;
+
+			case 5:
+				bet();
+				break;
+
+			case 6:
+				Exit();
+				break;
+
+			default:
+				System.out.println("Incorrect option");
+				break;
+			}
+		} while (imput != 0);
+	}
+
+	private static void Exit() {
+		System.out.println("Bye");
+		System.exit(0);
+
+	}
+
+	private static void Instructions() {
+
+		System.out.println("Yo have to add Your total credit for this machine' ");
+		System.out.println("Once you have credit in the machine, you have to bet in the option 5 ");
+		System.out.println("then Type '2' to start playing");
+		System.out.println("");
+
+	}
+
+	public static void Credit() {
+
+		System.out.println("Please insert total credit");
+		Scanner c = new Scanner(System.in);
+		String credit = c.next();
+		int credit1 = Integer.parseInt(credit);
+		int newCredit = 0;
+
+		total = credit1 + newCredit;
+		System.out.println("Credit: " + total);
+		System.out.println("");
+	}
+
+	private static void Cash() {
+		System.out.println(" Thank you for playing, you can take your money");
+		System.out.println(" Your Final Credit is: " + total);
+		total = 0;
+		System.out.println(" Current Crdeit: " + total);
+		System.out.println("");
+
+	}
+
+	private static void play() {
+
+		System.out.println("                     Welcome");
+		System.out.println("Depending on your matches you will increase your bet in:");
+		System.out.println("               ___ ___ ___           ");
+		System.out.println("              | A | A | A |  X20     ");
+		System.out.println("              |---|---|---|          ");
+		System.out.println("              | 7 | 7 | X |  x10     ");
+		System.out.println("              |---|---|---|          ");
+		System.out.println("              | X | 7 | A |  x0      ");
+		System.out.println("              |___|___|___|          ");
+		System.out.println("");
+
+		System.out.println("SPIN");
+		System.out.println(" 1 - YES");
+		System.out.println(" 2 - NO");
+
+		Scanner input = new Scanner(System.in);
+		String choice = input.next();
+		int choiced = Integer.parseInt(choice);
+
+		if (choiced == 1) {
+			j.spin();
+
+		} else {
+			if (choiced == 2) {
+				System.out.println("Bye");
+				System.exit(0);
+			} else {
+				System.out.println("INVALID OPTION");
+
+				// regresar al menu
+			}
+		}
+
+	}
+
+	private static void bet() {
+		int TEMPtotal;
+		// TODO Auto-generated method stub
+		System.out.println("How much you want to bet?");
+		Scanner scnr = new Scanner(System.in);
+		String B = scnr.next();
+		Bet = Integer.parseInt(B);
+		if (total != 0) {
+			System.out.println("Bet :" + Bet);
+			TEMPtotal = total - Bet;
+			System.out.println("New credit " + TEMPtotal);
+		} else {
+			System.out.println("Theres no credit to bet, please insert credit");
+			System.out.println("Current Credit: " + total);
+		}
+	}
+}
+
+class Juego {
+
+	int Match1;
+	int Match2;
+	int Match3;
+
+	public void spin() {
+
+		Match1 = (int) (Math.random() * 3);
+		Match2 = (int) (Math.random() * 3);
+		Match2 = (int) (Math.random() * 3);
+		
+			//System.out.println(Match1 + " " + Match2 + " " + Match3);
+
+		evaluate(Match1, Match2, Match3);
+
+	}
+
+	public void evaluate(int Match1, int Match2, int Match3) {
+
+	
+		if (Match1 == 0 && Match2 == 0 && Match3 == 0) {
+
+			System.out.println("| A | A | A |");
+			System.out.println(" Congratulations your bet has been multiplied by 20!!!");
+			System.out.println(" You won" + (SlotMachine.Bet * 20));
+			System.out.println("bet " + SlotMachine.Bet);
+			SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 20);
+			System.out.println("Credit: " + SlotMachine.total);
+
+		} else {
+			if (Match1 == 1 && Match2 == 1 && Match3 == 1) {
+
+				System.out.println("| 7 | 7 | 7 |");
+				System.out.println(" Congratulations your bet has been multiplied by 20!!!");
+				System.out.println(" You won" + (SlotMachine.Bet * 20));
+				System.out.println("bet " + SlotMachine.Bet);
+				SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 20);
+				System.out.println("Credit: " + SlotMachine.total);
+
+			} else {
+				if (Match1 == 2 && Match2 == 2 && Match3 == 2) {
+
+					System.out.println("| X | X | X |");
+					System.out.println(" Congratulations your bet has been multiplied by 20!!!");
+					System.out.println(" You won" + (SlotMachine.Bet * 20));
+					System.out.println("bet " + SlotMachine.Bet);
+					SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 20);
+					System.out.println("Credit: " + SlotMachine.total);
+
+//		______________________________________ONLY ENTERON__________________________________________________________	      
+
+				} else {
+					if (Match1 == 0 && Match2 == 1 && Match3 == 1) {
+
+						System.out.println("| A | 7 | 7 |");
+						System.out.println(" Congratulations your bet has been multiplied by 10!!!");
+						System.out.println(" You won" + (SlotMachine.Bet * 10));
+						System.out.println("bet " + SlotMachine.Bet);
+						SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+						System.out.println("Credit: " + SlotMachine.total);
+
+					} else {
+						if (Match1 == 1 && Match2 == 0 && Match3 == 1) {
+
+							System.out.println("| 7 | A | 7 |");
+							System.out.println(" Congratulations your bet has been multiplied by 10!!!");
+							System.out.println(" You won" + (SlotMachine.Bet * 10));
+							System.out.println("bet " + SlotMachine.Bet);
+							SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+							System.out.println("Credit: " + SlotMachine.total);
+
+						} else {
+							if (Match1 == 1 && Match2 == 1 && Match3 == 0) {
+
+								System.out.println("| 7 | 7 | A |");
+								System.out.println(" Congratulations your bet has been multiplied by 10!!!");
+								System.out.println(" You won" + (SlotMachine.Bet * 10));
+								System.out.println("bet " + SlotMachine.Bet);
+								SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+								System.out.println("Credit: " + SlotMachine.total);
+
+							} else {
+								if (Match1 == 2 && Match2 == 1 && Match3 == 1) {
+
+									System.out.println("| X | 7 | 7 |");
+									System.out.println(" Congratulations your bet has been multiplied by 10!!!");
+									System.out.println(" You won" + (SlotMachine.Bet * 10));
+									System.out.println("bet " + SlotMachine.Bet);
+									SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+									System.out.println("Credit: " + SlotMachine.total);
+
+								} else {
+									if (Match1 == 1 && Match2 == 2 && Match3 == 1) {
+
+										System.out.println("| 7 | X | 7 |");
+										System.out.println(" Congratulations your bet has been multiplied by 10!!!");
+										System.out.println(" You won" + (SlotMachine.Bet * 10));
+										System.out.println("bet " + SlotMachine.Bet);
+										SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+										System.out.println("Credit: " + SlotMachine.total);
+
+									} else {
+										if (Match1 == 1 && Match2 == 1 && Match3 == 2) {
+
+											System.out.println("| 7 | 7 | X |");
+											System.out
+													.println(" Congratulations your bet has been multiplied by 10!!!");
+											System.out.println(" You won" + (SlotMachine.Bet * 10));
+											System.out.println("bet " + SlotMachine.Bet);
+											SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+											System.out.println("Credit: " + SlotMachine.total);
+
+										} else {
+											if (Match1 == 2 && Match2 == 0 && Match3 == 0) {
+
+												System.out.println("| X | A | A |");
+												System.out.println(
+														" Congratulations your bet has been multiplied by 10!!!");
+												System.out.println(" You won" + (SlotMachine.Bet * 10));
+												System.out.println("bet " + SlotMachine.Bet);
+												SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+												System.out.println("Credit: " + SlotMachine.total);
+
+											} else {
+												if (Match1 == 0 && Match2 == 2 && Match3 == 0) {
+
+													System.out.println("| A | X | A |");
+													System.out.println(
+															" Congratulations your bet has been multiplied by 10!!!");
+													System.out.println(" You won" + (SlotMachine.Bet * 10));
+													System.out.println("bet " + SlotMachine.Bet);
+													SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+													System.out.println("Credit: " + SlotMachine.total);
+
+												} else {
+													if (Match1 == 0 && Match2 == 0 && Match3 == 2) {
+
+														System.out.println("| A | A | X |");
+														System.out.println(
+																" Congratulations your bet has been multiplied by 10!!!");
+														System.out.println(" You won" + (SlotMachine.Bet * 10));
+														System.out.println("bet " + SlotMachine.Bet);
+														SlotMachine.total = SlotMachine.total + (SlotMachine.Bet * 10);
+														System.out.println("Credit: " + SlotMachine.total);
+
+													} else {
+														if (Match1 == 1 && Match2 == 0 && Match3 == 0) {
+
+															System.out.println("| 7 | A | A |");
+															System.out.println(
+																	" Congratulations your bet has been multiplied by 10!!!");
+															System.out.println(" You won" + (SlotMachine.Bet * 10));
+															System.out.println("bet " + SlotMachine.Bet);
+															SlotMachine.total = SlotMachine.total
+																	+ (SlotMachine.Bet * 10);
+															System.out.println("Credit: " + SlotMachine.total);
+
+														} else {
+															if (Match1 == 0 && Match2 == 1 && Match3 == 0) {
+
+																System.out.println("| A | 7 | A |");
+																System.out.println(
+																		" Congratulations your bet has been multiplied by 10!!!");
+																System.out.println(" You won" + (SlotMachine.Bet * 10));
+																System.out.println("bet " + SlotMachine.Bet);
+																SlotMachine.total = SlotMachine.total
+																		+ (SlotMachine.Bet * 10);
+																System.out.println("Credit: " + SlotMachine.total);
+
+															} else {
+																if (Match1 == 0 && Match2 == 0 && Match3 == 1) {
+
+																	System.out.println("| A | A | 7 |");
+																	System.out.println(
+																			" Congratulations your bet has been multiplied by 10!!!");
+																	System.out.println(
+																			" You won" + (SlotMachine.Bet * 10));
+																	System.out.println("bet " + SlotMachine.Bet);
+																	SlotMachine.total = SlotMachine.total
+																			+ (SlotMachine.Bet * 10);
+																	System.out.println("Credit: " + SlotMachine.total);
+																} else {
+																	if (Match1 == 0 && Match2 == 2
+																			&& Match3 == 2) {
+
+																		System.out.println("| A | X | X |");
+																		System.out.println(
+																				" Congratulations your bet has been multiplied by 10!!!");
+																		System.out.println(
+																				" You won" + (SlotMachine.Bet * 10));
+																		System.out.println("bet " + SlotMachine.Bet);
+																		SlotMachine.total = SlotMachine.total
+																				+ (SlotMachine.Bet * 10);
+																		System.out.println(
+																				"Credit: " + SlotMachine.total);
+
+																	} else {
+																		if (Match1 == 2 && Match2 == 0
+																				&& Match3 == 2) {
+
+																			System.out.println("| X | A | X |");
+																			System.out.println(
+																					" Congratulations your bet has been multiplied by 10!!!");
+																			System.out.println(" You won"
+																					+ (SlotMachine.Bet * 10));
+																			System.out
+																					.println("bet " + SlotMachine.Bet);
+																			SlotMachine.total = SlotMachine.total
+																					+ (SlotMachine.Bet * 10);
+																			System.out.println(
+																					"Credit: " + SlotMachine.total);
+
+																		} else {
+																			if (Match1 == 2 && Match2 == 2
+																					&& Match3 == 0) {
+
+																				System.out.println("| X | X | A |");
+																				System.out.println(
+																						" Congratulations your bet has been multiplied by 10!!!");
+																				System.out.println(" You won"
+																						+ (SlotMachine.Bet * 10));
+																				System.out.println(
+																						"bet " + SlotMachine.Bet);
+																				SlotMachine.total = SlotMachine.total
+																						+ (SlotMachine.Bet * 10);
+																				System.out.println(
+																						"Credit: " + SlotMachine.total);
+
+																			} else {
+																				if (Match1 == 1 && Match2 == 2
+																						&& Match3 == 2) {
+
+																					System.out.println("| 7 | X | X |");
+																					System.out.println(
+																							" Congratulations your bet has been multiplied by 10!!!");
+																					System.out.println(" You won"
+																							+ (SlotMachine.Bet * 10));
+																					System.out.println(
+																							"bet " + SlotMachine.Bet);
+																					SlotMachine.total = SlotMachine.total
+																							+ (SlotMachine.Bet * 10);
+																					System.out.println("Credit: "
+																							+ SlotMachine.total);
+
+																				} else {
+																					if (Match1 == 2 && Match2 == 1
+																							&& Match3 == 2) {
+
+																						System.out.println(
+																								"| X | 7 | X |");
+																						System.out.println(
+																								" Congratulations your bet has been multiplied by 10!!!");
+																						System.out.println(" You won"
+																								+ (SlotMachine.Bet
+																										* 10));
+																						System.out.println("bet "
+																								+ SlotMachine.Bet);
+																						SlotMachine.total = SlotMachine.total
+																								+ (SlotMachine.Bet
+																										* 10);
+																						System.out.println("Credit: "
+																								+ SlotMachine.total);
+
+																					} else {
+																						if (Match1 == 2
+																								&& Match2 == 2
+																								&& Match3 == 1) {
+
+																							System.out.println(
+																									"| X | X | 7 |");
+																							System.out.println(
+																									" Congratulations your bet has been multiplied by 10!!!");
+																							System.out
+																									.println(" You won"
+																											+ (SlotMachine.Bet
+																													* 10));
+																							System.out.println("bet "
+																									+ SlotMachine.Bet);
+																							SlotMachine.total = SlotMachine.total
+																									+ (SlotMachine.Bet
+																											* 10);
+																							System.out
+																									.println("Credit: "
+																											+ SlotMachine.total);
+																						} else {
+																							System.out.println(
+																									"Sorry there are no matches, you lost");
+																							System.out.println("bet " + SlotMachine.Bet);
+																							System.out.println("Credit: " + SlotMachine.total);
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+}
